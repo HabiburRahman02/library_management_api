@@ -21,11 +21,18 @@ export const createBook = async (req: Request, res: Response) => {
 
 export const getBooks = async (req: Request, res: Response) => {
     try {
-        const books = await Book.find();
+        const query = req.query.filter ? { genre: req.query.filter } : {};
+        console.log(req.query);
+        const { sortBy = 'createdAt' as string, sort = 'asc' as string, limit = 10 } = req.query;
+        const sortOrder = sort === 'desc' ? -1 : 1;
+
+        const books = await Book.find(query)
+            .sort({ [String(sortBy)]: sortOrder })
+            .limit(Number(limit));
         res.status(200).json({
             success: true,
-            message: "Books retrieve successfully",
-            data: books
+            message: "Books retrieved successfully",
+            data: books,
         });
     } catch (error) {
         res.status(500).json({
