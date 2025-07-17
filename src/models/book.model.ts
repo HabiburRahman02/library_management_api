@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import { BookInterface } from "../interfaces/book.interface";
 
 
-const bookSchema = new mongoose.Schema({
+const bookSchema = new mongoose.Schema<BookInterface>({
     title: { type: String, required: true },
     author: { type: String, required: true },
     genre: { type: String, required: true, enum:{

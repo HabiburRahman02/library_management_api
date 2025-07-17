@@ -19,6 +19,7 @@ export const createBook = async (req: Request, res: Response) => {
     }
 }
 
+
 export const getBooks = async (req: Request, res: Response) => {
     try {
         const query = req.query.filter ? { genre: req.query.filter } : {};
@@ -42,3 +43,27 @@ export const getBooks = async (req: Request, res: Response) => {
         });
     }
 }   
+
+export const getBookById = async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.id;
+        const book = await Book.findById(bookId);
+        if (!book) {   
+            return res.status(404).json({
+                success: false,
+                message: "Book not found"
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "Book retrieved successfully",
+            data: book
+        }); 
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error fetching book",
+            error
+        }); 
+    }                  
+}          
