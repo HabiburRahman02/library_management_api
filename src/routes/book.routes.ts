@@ -1,11 +1,12 @@
 import express from 'express';
-import { createBook, getBookById, getBooks } from '../controllers/book.controller';
+import { createBook, getBookById, getBooks, updateBookById } from '../controllers/book.controller';
 
  const bookRoutes = express.Router();
 
 bookRoutes.post('/', createBook )
 bookRoutes.get('/', getBooks);
-bookRoutes.get('/:id', getBookById);
+bookRoutes.get('/:bookId', getBookById);
+bookRoutes.put('/:bookId', updateBookById);
 
 
 export default bookRoutes;
