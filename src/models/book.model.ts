@@ -18,4 +18,5 @@ const bookSchema = new mongoose.Schema<BookInterface>({
     versionKey: false
 });
 
-export const Book = mongoose.model('Book', bookSchema); 
+export const Book = mongoose.model('Book', bookSchema);
+
