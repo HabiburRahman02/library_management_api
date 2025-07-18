@@ -20,3 +20,7 @@ const bookSchema = new mongoose.Schema<BookInterface>({
 
 export const Book = mongoose.model('Book', bookSchema);
 
+bookSchema.methods.updateAvailability = function () {
+  this.available = this.copies > 0;
+  return this.save();
+};
